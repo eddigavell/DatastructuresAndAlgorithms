@@ -46,76 +46,20 @@ public class LinkedList {
                     n = n.next;
                 }
                 n.next = new Node(v);
+            } else if (index == 0) {
+                Node newNodeToAdd = new Node(v);
+                newNodeToAdd.next = head;
+                head = newNodeToAdd;
             } else {
-                int i = 0;
-                int tempValue = 0;
-                int tempValue2 = 0;
                 Node n = head;
-                while (n.next != null) {
-                    if (i == index) {
-                        tempValue = n.value;
-                        n.value = v;
-                    } else if (i>index) {
-                        tempValue2 = n.value;
-                        n.value = tempValue;
-                        tempValue = tempValue2;
-                        tempValue2 = n.next.value;
-                    }
-                    i++;
+                Node newNodeToAdd = new Node(v);
+                for (int i = 0; i < index-1; i++) {
                     n = n.next;
                 }
-                System.out.println(v + " ADDED");
-                System.out.println("tempvalue: " + tempValue);
-                System.out.println("tempValue2: " + tempValue2);
-                System.out.println("--------------------------");
-
-                if (tempValue != 0) {
-                    n.value = tempValue;
-                }
-                if (tempValue2 != 0) {
-                    n.next = new Node(tempValue2);
-                }
-
-                /*
-                int i = 0;
-                int size = size();
-                int tempValue = 0;
-                int tempValue2 = 0;
-                Node n = head;
-                while (n.next != null) {
-                    if (i == index) {
-                        tempValue = n.value;
-                        n.value = v;
-                    } else if (i>index) {
-                        tempValue2 = n.value;
-                        n.value = tempValue;
-                        tempValue = tempValue2;
-                        tempValue2 = n.next.value;
-                    }
-                    i++;
-                    n = n.next;
-                }
-                if (tempValue != 0) {
-                    n.value = tempValue;
-                }
-                if (tempValue2 != 0) {
-                    n.next = new Node(tempValue2);
-                }
-
-                 */
+                newNodeToAdd.next = n.next;
+                n.next = newNodeToAdd;
             }
         }
-        /* -Original head med bara värde-
-        if (head == null) {
-            head = new Node(v);
-        } else {
-            Node n = head;
-            while (n.next != null) {
-                n = n.next;
-            }
-            n.next = new Node(v);
-        }
-         */
     }
 
     public void add(int v) {
@@ -124,17 +68,17 @@ public class LinkedList {
 
     public void remove(int index) {
         // ta bort elementet på position/index i
-        Node n = head;
-        for (int i = 0; i < size(); i++) {
-            int tempValue;
-            if (i < index) {
+        if (index == 0) {
+            head = head.next;
+        } else if (index > size()-1) {
+            throw new IndexOutOfBoundsException("This index does not exist");
+        } else {
+            Node n = head;
+            int i;
+            for (i = 0; i < index-1; i++) {
                 n = n.next;
-            } else if (i == index) {
-                System.out.println("YAY");
-                n.value = 99;
-                n = null;
-                System.out.println(n);
             }
+        n.next = n.next.next;
         }
     }
 
