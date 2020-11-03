@@ -4,7 +4,7 @@ public class LinkedList {
     private Node head;
 
     public int get(int index) {
-        // returnerar elementet på position/index i
+        // returns element on index
         int i = 0;
         Node n = head;
         while (i < index) {
@@ -15,7 +15,7 @@ public class LinkedList {
     }
 
     public boolean contains(int e) {
-        // true om e finns i listan annars false
+        // true if 'e' exists in the list, otherwise false
         if (head == null) {
             return false;
         } else {
@@ -33,11 +33,10 @@ public class LinkedList {
     }
 
     public void add(int index, int v) {
-        // Lägger till element e till position/index i,
-        // element till "höger" om i flyttar ett steg till höger
+        //Adds element on index, everything after moves to the "right".
         if (head == null) { //If empty creates a new Node for the list
             head = new Node(v);
-        } else if (index > size()) {
+        } else if (index > size()) { //If index is out of bounds throw a exception
             throw new IndexOutOfBoundsException("IndexOutOfBoundsException");
         } else {
             if (index == size()) { //if the index is "last" we create a new node at the end
@@ -46,11 +45,11 @@ public class LinkedList {
                     n = n.next;
                 }
                 n.next = new Node(v);
-            } else if (index == 0) {
+            } else if (index == 0) { //If index is at the start add the node there and push everything to "right"
                 Node newNodeToAdd = new Node(v);
                 newNodeToAdd.next = head;
                 head = newNodeToAdd;
-            } else {
+            } else { //If index is somewhere else add the new node between two existings and push everything after to the "right"
                 Node n = head;
                 Node newNodeToAdd = new Node(v);
                 for (int i = 0; i < index-1; i++) {
@@ -67,7 +66,7 @@ public class LinkedList {
     }
 
     public void remove(int index) {
-        // ta bort elementet på position/index i
+        // remove elements on index/position of index
         if (index == 0) {
             head = head.next;
         } else if (index > size()-1) {
@@ -83,12 +82,12 @@ public class LinkedList {
     }
 
     public boolean empty() {
-        // true om listan är tom, annars false
+        // true if the list is empty otherwise false
         return head == null;
     }
 
     public int size() {
-        // antalet element i listan
+        // Length of the list
         if(head == null) {
             return 0;
         } else {
