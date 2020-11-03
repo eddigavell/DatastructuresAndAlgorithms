@@ -1,5 +1,7 @@
 package Lab1;
 
+import java.util.List;
+
 public class Main {
     public static void main(String[] args) {
         LinkedList list = new LinkedList();
@@ -15,5 +17,13 @@ public class Main {
         System.out.println(list.size()); // -> 3
         System.out.println(list.empty()); // -> false
         System.out.println(list.contains(99));
+        Stack stack = new Stack();
+        System.out.println("Stack-------");
+        stack.push(1);
+        stack.push(50);
+        stack.push(100);
+        System.out.println(stack.peek());
+        stack.pop();
+        System.out.println(stack.peek());
     }
 }
