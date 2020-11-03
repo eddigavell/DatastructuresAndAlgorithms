@@ -38,7 +38,7 @@ public class LinkedList {
         if (head == null) { //If empty creates a new Node for the list
             head = new Node(v);
         } else if (index > size()) {
-            throw new IndexOutOfBoundsException("The list isn't this big...");
+            throw new IndexOutOfBoundsException("IndexOutOfBoundsException");
         } else {
             if (index == size()) { //if the index is "last" we create a new node at the end
                 Node n = head;
@@ -106,7 +106,7 @@ public class LinkedList {
         Node next;
         int value;
 
-        protected Node(int v) {
+        Node(int v) {
             this.value = v;
         }
     }
