@@ -33,6 +33,4 @@ public class Lektion1 {
 
         System.out.println("Done");
     }
-
-
 }

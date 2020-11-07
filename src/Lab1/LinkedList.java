@@ -5,31 +5,28 @@ public class LinkedList {
 
     public int get(int index) {
         // returns element on index
-        int i = 0;
-        Node n = head;
-        while (i < index) {
-            n = n.next;
-            i++;
+        if (size() <= 0) {
+           throw new IndexOutOfBoundsException("IndexOutOfBoundsException... probably empty");
+        } else {
+            int i = 0;
+            Node n = head;
+            while (i < index) {
+                n = n.next;
+                i++;
+            }
+            return n.value;
         }
-        return n.value;
     }
 
     public boolean contains(int e) {
         // true if 'e' exists in the list, otherwise false
-        if (head == null) {
-            return false;
-        } else {
-            int i = 0;
-            Node n = head;
-            while (n.next != null) {
-                n = n.next;
-                if(e == get(i)) {
-                    return true;
-                }
-                i++;
+        boolean flag = false;
+        for (int i = 0; i < size(); i++) {
+            if (e == get(i)) {
+                flag = true;
             }
         }
-        return false;
+        return flag;
     }
 
     public void add(int index, int v) {
