@@ -13,7 +13,7 @@ public class BST { //BST -> Binära sökträd
         }
     }
 
-    public void remove(Node node, int n) {
+    private void remove(Node node, int n) {
         /*  2. Fortsätt med implementationen av ett binärt sökträd
             a) Lägg till metoder för att ta bort ett element, tänk på fallen:
             1. Noden har inga barn
@@ -64,16 +64,21 @@ public class BST { //BST -> Binära sökträd
         remove(root, n);
     }
 
-    /*
-            10 -> 15 -> 5 -> 12 -> 20 -> 7 -> 2 -> 6 -> 8
-                                      10
-                                   5          15
-                               2     7      12   20
-                                   6   8
+    /* 10 -> 15 -> 5 -> 12 -> 20 -> 7 -> 2 -> 6 -> 8
+                                10
+                           5          15
+                        2     7      12   20
+                            6   8
     */
 
-    public void traversePreOrder() { // NLR
-        // 5 -> 3 -> 1 -> 0 -> 2 -> 4 -> 8 -> 6 -> 7 -> 9 -> 10
+    public void traversePreOrder(Node tree) { // NLR
+        // 10 -> 5 -> 2 -> 7 -> 6 -> 8 -> 15 -> 12 -> 20
+        if(tree == null) {
+            return;
+        }
+        System.out.println(tree.key);
+        traversePreOrder(tree.left);
+        traversePreOrder(tree.right);
     }
 
     public void traverseInOrder(Node tree) { // LNR
@@ -88,6 +93,7 @@ public class BST { //BST -> Binära sökträd
 
     public void traverseReverseInOrder(Node tree) { // RNL
         // 20 -> 15 -> 12 -> 10 -> 8 -> 7 -> 6 -> 5 -> 2
+        // 20 -> 15 -> 12 -> 10 -> 8 -> 7 -> 6 -> 5 -> 2
         if (tree == null) {
             return;
         }
@@ -96,8 +102,20 @@ public class BST { //BST -> Binära sökträd
         traverseReverseInOrder(tree.left);
     }
 
-    public void traversePostOrder() { // LRN
-        // 0 ->
+    public void traversePostOrder(Node tree) { // LRN
+        /* 10 -> 15 -> 5 -> 12 -> 20 -> 7 -> 2 -> 6 -> 8
+                                10
+                           5          15
+                        2     7      12   20
+                            6   8
+        */
+        // 2 -> 6 -> 8 -> 7 -> 5 -> 12 -> 20 -> 15 -> 10
+        if(tree == null) {
+            return;
+        }
+        traversePostOrder(tree.left);
+        traversePostOrder(tree.right);
+        System.out.println(tree.key);
     }
 
     private Node insertRec(Node tree, int key) {
@@ -154,8 +172,18 @@ public class BST { //BST -> Binära sökträd
         bt.insert(6);
         bt.insert(8);
 
-        //bt.traverseInOrder(bt.root);
-        //bt.traverseReverseInOrder(bt.root);
+        System.out.println("-PreOrder-");
+        bt.traversePreOrder(bt.root);
+        System.out.println();
+        System.out.println("-InOrder-");
+        bt.traverseInOrder(bt.root);
+        System.out.println();
+        System.out.println("-ReverseInOrder-");
+        bt.traverseReverseInOrder(bt.root);
+        System.out.println();
+        System.out.println("-PostOrder-");
+        bt.traversePostOrder(bt.root);
+        System.out.println();
 
     }
 }
