@@ -67,49 +67,38 @@ public class BST { //BST -> Binära sökträd
 
     public void traversePreOrder(Node tree) { // NLR
         // 10 -> 5 -> 2 -> 7 -> 6 -> 8 -> 15 -> 12 -> 20
-        if(tree == null) {
-            return;
+        if(tree != null) {
+            System.out.println(tree.key);
+            traversePreOrder(tree.left);
+            traversePreOrder(tree.right);
         }
-        System.out.println(tree.key);
-        traversePreOrder(tree.left);
-        traversePreOrder(tree.right);
     }
 
     public void traverseInOrder(Node tree) { // LNR
         // 2 -> 5 -> 6 -> 7 -> 8 -> 10 -> 12 -> 15 -> 20
-        if (tree == null) {
-            return;
+        if (tree != null) {
+            traverseInOrder(tree.left);
+            System.out.println(tree.key);
+            traverseInOrder(tree.right);
         }
-        traverseInOrder(tree.left);
-        System.out.println(tree.key);
-        traverseInOrder(tree.right);
     }
 
     public void traverseReverseInOrder(Node tree) { // RNL
         // 20 -> 15 -> 12 -> 10 -> 8 -> 7 -> 6 -> 5 -> 2
-        // 20 -> 15 -> 12 -> 10 -> 8 -> 7 -> 6 -> 5 -> 2
-        if (tree == null) {
-            return;
+        if (tree != null) {
+            traverseReverseInOrder(tree.right);
+            System.out.println(tree.key);
+            traverseReverseInOrder(tree.left);
         }
-        traverseReverseInOrder(tree.right);
-        System.out.println(tree.key);
-        traverseReverseInOrder(tree.left);
     }
 
     public void traversePostOrder(Node tree) { // LRN
-        /* 10 -> 15 -> 5 -> 12 -> 20 -> 7 -> 2 -> 6 -> 8
-                                10
-                           5          15
-                        2     7      12   20
-                            6   8
-        */
         // 2 -> 6 -> 8 -> 7 -> 5 -> 12 -> 20 -> 15 -> 10
-        if(tree == null) {
-            return;
+        if(tree != null) {
+            traversePostOrder(tree.left);
+            traversePostOrder(tree.right);
+            System.out.println(tree.key);
         }
-        traversePostOrder(tree.left);
-        traversePostOrder(tree.right);
-        System.out.println(tree.key);
     }
 
     private Node insertRec(Node tree, int key) {
