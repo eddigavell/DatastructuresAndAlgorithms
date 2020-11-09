@@ -13,6 +13,13 @@ public class BST { //BST -> Binära sökträd
         }
     }
 
+    /* 10 -> 15 -> 5 -> 12 -> 20 -> 7 -> 2 -> 6 -> 8
+                                10
+                           5          15
+                        2     7      12   20
+                            6   8
+    */
+
     private void remove(Node node, int n) {
         if (node != null) { //As long as the node is not null.
             if (n == node.key) { //If node key is the same as we send in
@@ -23,6 +30,7 @@ public class BST { //BST -> Binära sökträd
                 } else if (node.right == null) { // The node only has one smaller child
                     root = node.left;
                 } else { // The node has two childrens
+                    node.left.left.right = node.left.right;
                     root = node.left;
                     root.right = node.right;
                 }
@@ -30,6 +38,7 @@ public class BST { //BST -> Binära sökträd
                 if (node.left!= null) {
                     if (n == node.left.key) {
                         if (node.left.left != null) {
+                            node.left.left.right = node.left.right;
                             node.left = node.left.left;
                         } else {
                             node.left = null;
@@ -42,7 +51,8 @@ public class BST { //BST -> Binära sökträd
                 if (node.right != null) {
                     if (n == node.right.key) {
                         if (node.right.right != null) {
-                            node.right = node.right.right;
+                            node.right.left.right = node.right.right;
+                            node.right = node.right.left;
                         } else {
                             node.right = null;
                         }
@@ -57,13 +67,6 @@ public class BST { //BST -> Binära sökträd
     public void remove(int n) {
         remove(root, n);
     }
-
-    /* 10 -> 15 -> 5 -> 12 -> 20 -> 7 -> 2 -> 6 -> 8
-                                10
-                           5          15
-                        2     7      12   20
-                            6   8
-    */
 
     public void traversePreOrder(Node tree) { // NLR
         // 10 -> 5 -> 2 -> 7 -> 6 -> 8 -> 15 -> 12 -> 20
