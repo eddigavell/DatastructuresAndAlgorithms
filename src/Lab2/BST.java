@@ -14,14 +14,8 @@ public class BST { //BST -> Binära sökträd
     }
 
     private void remove(Node node, int n) {
-        /*  2. Fortsätt med implementationen av ett binärt sökträd
-            a) Lägg till metoder för att ta bort ett element, tänk på fallen:
-            1. Noden har inga barn
-            2. Noden har ett barn
-            3. Noden har två barn
-            Tänk också på att ni kan behöva hantera fallet där det som skall tas bort ligger i rot-noden. */
-        if (node != null) { //As long as the node isnt null.
-            if (n == node.key) { //If nodekey is the same as we send in
+        if (node != null) { //As long as the node is not null.
+            if (n == node.key) { //If node key is the same as we send in
                 if (node.left == null && node.right == null) { //The node doesnt have kids
                     root = null;
                 } else if (node.left == null) { // The node only has one bigger child
@@ -132,32 +126,6 @@ public class BST { //BST -> Binära sökträd
 
     public void insert(int key) {
         root = insertRec(root, key);
-    }
-
-    public void printInOrderLeft() { //printInOrderLeft -> Low to High (left to right)
-        printInOrderLeft(root);
-    }
-
-    private void printInOrderLeft(Node tree) {
-        if (tree == null) {
-            return;
-        }
-        printInOrderLeft(tree.left);
-        System.out.println(tree.key);
-        printInOrderLeft(tree.right);
-    }
-
-    public void printInOrderRight() { // printInOrderRight -> High to Low (Right to left)
-        printInOrderRight(root);
-    }
-
-    private void printInOrderRight(Node tree) {
-        if (tree == null) {
-            return;
-        }
-        printInOrderRight(tree.right);
-        System.out.println(tree.key);
-        printInOrderRight(tree.left);
     }
 
     public static void main(String[] args) {
