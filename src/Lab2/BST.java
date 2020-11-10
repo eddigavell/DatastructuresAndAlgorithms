@@ -37,8 +37,8 @@ public class BST { //BST -> Binära sökträd
     public void newRemove(Node node, int x) {
         Node tempBeforeTheTarget = searchNodeBeforeTarget(node, x);
 
-        Boolean left = (tempBeforeTheTarget.left.key == x);
-        Boolean right = (tempBeforeTheTarget.right.key == x);
+        boolean left = (tempBeforeTheTarget.left.key == x);
+        boolean right = (tempBeforeTheTarget.right.key == x);
         System.out.println("Node före target: " + tempBeforeTheTarget.key);
         System.out.println("r: " + right);
         System.out.println("l: " + left);
@@ -52,6 +52,8 @@ public class BST { //BST -> Binära sökträd
 
 
         } else { // vi står på target noden som vi ska ta bort... dvs detta är root
+
+
 
         }
 
