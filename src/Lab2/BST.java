@@ -14,23 +14,112 @@ public class BST { //BST -> Binära sökträd
     }
 
     public Node searchNodeBeforeTarget(Node node, int x) {
-        if (x == node.left.key || x == node.right.key) {
+        if (node == null) {
+           return null;
+        } else if (node.left == null && node.right == null) {
             return node;
-        } else {
-            if (x > node.key) {
-                return searchNodeBeforeTarget(node.right, x);
-            } else if (x < node.key) {
-                return searchNodeBeforeTarget(node.left, x);
-            } else {
+        }
+
+        if (node.left == null && node.right != null) {
+            if (x == node.right.key) {
                 return node;
+            } else {
+                return searchNodeBeforeTarget(node.right, x);
+            }
+        } else if (node.left != null && node.right == null) {
+            if (x == node.left.key) {
+                return node;
+            } else {
+                return searchNodeBeforeTarget(node.left, x);
+            }
+        } else {
+            if (x == node.left.key || x == node.right.key) {
+                return node;
+            } else {
+                if (x > node.key) {
+                    return searchNodeBeforeTarget(node.right, x);
+                } else if (x < node.key) {
+                    return searchNodeBeforeTarget(node.left, x);
+                } else {
+                    return node;
+                }
             }
         }
     }
 
+    public Node searchNodeBeforeHighestAfterTargetNode(Node node, int x) {
+                    /* 10 -> 15 -> 5 -> 12 -> 20 -> 7 -> 2 -> 6 -> 8
+                     10
+                5            15
+             2     7      12    20
+                 6   8
+         */
+
+        if (node == null) { // Noden är tom
+            return null;
+        } else if (node.left == null && node.right == null) { // Inga barn alls
+            return node;
+        }
+
+        if (node.left == null) { //Inga vänster barn
+            if (node.right.right == null) {
+                return node;
+            } else {
+                return searchNodeBeforeHighestAfterTargetNode(node.right, x);
+            }
+        } else if ( node.right == null) { // Inga höger barn
+            if (node.left.right == null) {
+                return node;
+            } else if (node.left.right.right != null){
+                return searchNodeBeforeHighestAfterTargetNode(node.left.right, x);
+            }
+        } else { // två barn
+            if (x > node.key) {
+                if (node.right.right != null) {
+                    searchNodeBeforeHighestAfterTargetNode(node.right, x);
+                } else {
+                    return node;
+                }
+            } else if (x < node.key) {
+                if (node.left.right == null) {
+                    return node;
+                } else if (node.left.right.right != null){
+                    return searchNodeBeforeHighestAfterTargetNode(node.left.right, x);
+                }
+            }
+        }
+        return node;
+    }
+
+
+
+    public void removeRemove(Node node, int x) {
+        Node nodeBeforeTheTarget = searchNodeBeforeTarget(node, x);
+        Node nodeBeforeHighestAfterTargetNode = searchNodeBeforeHighestAfterTargetNode(nodeBeforeTheTarget, x);
+        System.out.println(nodeBeforeTheTarget.key);
+        System.out.println(nodeBeforeHighestAfterTargetNode.key);
+    }
+
+    public void removeRemove(int x) {
+        removeRemove(root, x);
+    }
+
+
     public void newRemove(Node node, int x) {
         Node nodeBeforeTheTarget = searchNodeBeforeTarget(node, x);
-        boolean targetIsleftChildren = (nodeBeforeTheTarget.left.key == x);
-        boolean targetIsRightChildren = (nodeBeforeTheTarget.right.key == x);
+        boolean targetIsleftChildren = false;
+        boolean targetIsRightChildren = false;
+        if (nodeBeforeTheTarget.left != null) {
+            if (x == nodeBeforeTheTarget.left.key) {
+                targetIsleftChildren = true;
+            }
+        }
+        if (nodeBeforeTheTarget.right != null) {
+            if (x == nodeBeforeTheTarget.right.key) {
+                targetIsRightChildren = true;
+            }
+        }
+
         boolean targetHasRightChildren = false;
         boolean targetHasLeftChildren = false;
 
@@ -90,6 +179,14 @@ public class BST { //BST -> Binära sökträd
             } else { // Target has no children
                 nodeBeforeTheTarget = null;
             }
+        }
+    }
+
+    public void newRemove(int x) {
+        if (x == root.key && root.left == null && root.right == null) {
+            root = null;
+        } else {
+            newRemove(root, x);
         }
     }
 
@@ -205,10 +302,13 @@ public class BST { //BST -> Binära sökträd
         bt.insert(6);
         bt.insert(8);
 
+/*
         System.out.println("-InOrder-");
         bt.traverseInOrder(bt.root);
         System.out.println();
 
+
+ */
         /* 10 -> 15 -> 5 -> 12 -> 20 -> 7 -> 2 -> 6 -> 8
                      10
                 5            15
@@ -216,12 +316,14 @@ public class BST { //BST -> Binära sökträd
                  6   8
          */
 
-        bt.newRemove(bt.root, 20);
-
+        bt.removeRemove(7);
+/*
         System.out.println("-InOrder-");
         bt.traverseInOrder(bt.root);
         System.out.println();
 
+
+ */
 
         /*
         System.out.println("-PreOrder-");
