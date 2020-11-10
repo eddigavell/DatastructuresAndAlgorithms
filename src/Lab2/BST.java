@@ -35,41 +35,113 @@ public class BST { //BST -> Binära sökträd
     }
 
     public void newRemove(Node node, int x) {
-        Node tempBeforeTheTarget = searchNodeBeforeTarget(node, x);
+        Node nodeBeforeTheTarget = searchNodeBeforeTarget(node, x);
 
-        boolean left = (tempBeforeTheTarget.left.key == x);
-        boolean right = (tempBeforeTheTarget.right.key == x);
-        System.out.println("Node före target: " + tempBeforeTheTarget.key);
-        System.out.println("r: " + right);
-        System.out.println("l: " + left);
+        boolean targetIsToleft = (nodeBeforeTheTarget.left.key == x);
+        boolean targetIsToRight = (nodeBeforeTheTarget.right.key == x);
+        boolean targetRightChildren = false;
+        boolean targetLeftChildren = false;
 
-        if (left) { //Om target node är till vänster
+        /* 10 -> 15 -> 5 -> 12 -> 20 -> 7 -> 2 -> 6 -> 8
+                                10
+                           5          15
+                        2     7      12   20
+                            6   8
+    */
+
+        System.out.println("Node före target: " + nodeBeforeTheTarget.key);
+        System.out.println("barn till vänster: " + targetIsToleft);
+        System.out.println("barn till höger: " + targetIsToRight);
+
+
+        if (targetIsToleft) { // Target node is the left children
+            // Check if target has children
+            if (nodeBeforeTheTarget.left.left != null) {
+                targetLeftChildren = true;
+            }
+            if (nodeBeforeTheTarget.left.right != null) {
+                targetRightChildren = true;
+            }
 
 
 
-        } else if (right) { // om target node är till höger
+            if (targetLeftChildren && targetRightChildren) { // target has two children
 
 
-
-        } else { // vi står på target noden som vi ska ta bort... dvs detta är root
-
+            } else if (targetLeftChildren) { // Target has only one children which is left
 
 
+            } else if (targetRightChildren) { // Target has only one children which is right
+
+
+            } else { // Target has no children
+
+
+            }
+
+        } else if (targetIsToRight) { // Target node is the right children
+            // Check if target has children
+            if (nodeBeforeTheTarget.right.left != null) {
+                targetLeftChildren = true;
+            }
+            if (nodeBeforeTheTarget.right.right != null) {
+                targetRightChildren = true;
+            }
+
+
+            if (targetLeftChildren && targetRightChildren) { // target has two children
+
+
+            } else if (targetLeftChildren) { // Target has only one children which is left
+
+
+            } else if (targetRightChildren) { // Target has only one children which is right
+
+
+            } else { // Target has no children
+
+
+            }
+
+        } else { // Target node is the same as we stand in. probably the root node
+            // Check if target has children
+            if (nodeBeforeTheTarget.left != null) {
+                targetLeftChildren = true;
+            }
+            if (nodeBeforeTheTarget.right != null) {
+                targetRightChildren = true;
+            }
+
+            if (targetLeftChildren && targetRightChildren) { // target has two children
+
+
+            } else if (targetLeftChildren) { // Target has only one children which is left
+
+
+            } else if (targetRightChildren) { // Target has only one children which is right
+
+
+            } else { // Target has no children
+
+
+            }
         }
+        System.out.println("Target children left: " + targetLeftChildren);
+        System.out.println("Target children right: " + targetRightChildren);
 
-        if (tempBeforeTheTarget.left == null && tempBeforeTheTarget.right == null) {
-            tempBeforeTheTarget = null;
-        } else if (tempBeforeTheTarget.left == null) {
-            tempBeforeTheTarget = tempBeforeTheTarget.right;
-        } else if (tempBeforeTheTarget.right == null) {
-            tempBeforeTheTarget = tempBeforeTheTarget.left;
+        if (nodeBeforeTheTarget.left == null && nodeBeforeTheTarget.right == null) {
+            nodeBeforeTheTarget = null;
+        } else if (nodeBeforeTheTarget.left == null) {
+            nodeBeforeTheTarget = nodeBeforeTheTarget.right;
+        } else if (nodeBeforeTheTarget.right == null) {
+            nodeBeforeTheTarget = nodeBeforeTheTarget.left;
         } else {
 
-            if (tempBeforeTheTarget.left == null && tempBeforeTheTarget.right == null) {
-                tempBeforeTheTarget.key = tempBeforeTheTarget.key;
-                tempBeforeTheTarget.right = null;
-            } else if (tempBeforeTheTarget.left == null) {
-                tempBeforeTheTarget.key = tempBeforeTheTarget.key;
+            if (nodeBeforeTheTarget.left == null && nodeBeforeTheTarget.right == null) {
+                nodeBeforeTheTarget.key = nodeBeforeTheTarget.key;
+                nodeBeforeTheTarget.right = null;
+            } else if (nodeBeforeTheTarget.left == null) {
+                nodeBeforeTheTarget.key = nodeBeforeTheTarget.key;
             }
         }
     }
@@ -190,14 +262,14 @@ public class BST { //BST -> Binära sökträd
         //bt.traverseInOrder(bt.root);
         //System.out.println();
 
-        bt.newRemove(bt.root, 2);
+        /*
+                     10
+                5            15
+             2     7      12    20
+                 6   8
+         */
 
-        /* 10 -> 15 -> 5 -> 12 -> 20 -> 7 -> 2 -> 6 -> 8
-                                10
-                           5          15
-                        2     7      12   20
-                            6   8
-    */
+        bt.newRemove(bt.root, 7);
 
         //System.out.println("-InOrder-");
         //bt.traverseInOrder(bt.root);
