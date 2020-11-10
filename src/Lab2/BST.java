@@ -18,42 +18,56 @@ public class BST { //BST -> Binära sökträd
                            5          15
                         2     7      12   20
                             6   8
-
     */
 
-    public Node searchForSpecialNode(Node node, int x) {
-        if (x > node.key) {
-            return searchForSpecialNode(node.right, x);
-        } else if (x < node.key) {
-            return searchForSpecialNode(node.left, x);
-        }
-        return node;
-    }
-
-    int i=0;
-    public Node searchHighestAfterThatWeWantToRemove(Node node) {
-            if (node.right == null) {
-                return node;
+    public Node searchNodeBeforeTarget(Node node, int x) {
+        if (x == node.left.key || x == node.right.key) {
+            return node;
+        } else {
+            if (x > node.key) {
+                return searchNodeBeforeTarget(node.right, x);
+            } else if (x < node.key) {
+                return searchNodeBeforeTarget(node.left, x);
             } else {
-                return searchHighestAfterThatWeWantToRemove(node.right);
+                return node;
             }
+        }
     }
 
     public void newRemove(Node node, int x) {
-        Node temp = searchForSpecialNode(node, x);
-        if (temp.left == null && temp.right == null) {
-            temp = null;
-        } else if (temp.left == null) {
-            temp = temp.right;
-        } else if (temp.right == null) {
-            temp = temp.left;
-        } else {
-            Node highestAfterTemp = searchHighestAfterThatWeWantToRemove(temp.left);
+        Node tempBeforeTheTarget = searchNodeBeforeTarget(node, x);
 
-            if (highestAfterTemp.left == null && highestAfterTemp.right == null) {
-                temp.key = highestAfterTemp.key;
-            } else {
-                temp.key = highestAfterTemp.key;
+        Boolean left = (tempBeforeTheTarget.left.key == x);
+        Boolean right = (tempBeforeTheTarget.right.key == x);
+        System.out.println("Node före target: " + tempBeforeTheTarget.key);
+        System.out.println("r: " + right);
+        System.out.println("l: " + left);
+
+        if (left) { //Om target node är till vänster
+
+
+
+        } else if (right) { // om target node är till höger
+
+
+
+        } else { // vi står på target noden som vi ska ta bort... dvs detta är root
+
+        }
+
+        if (tempBeforeTheTarget.left == null && tempBeforeTheTarget.right == null) {
+            tempBeforeTheTarget = null;
+        } else if (tempBeforeTheTarget.left == null) {
+            tempBeforeTheTarget = tempBeforeTheTarget.right;
+        } else if (tempBeforeTheTarget.right == null) {
+            tempBeforeTheTarget = tempBeforeTheTarget.left;
+        } else {
+
+            if (tempBeforeTheTarget.left == null && tempBeforeTheTarget.right == null) {
+                tempBeforeTheTarget.key = tempBeforeTheTarget.key;
+                tempBeforeTheTarget.right = null;
+            } else if (tempBeforeTheTarget.left == null) {
+                tempBeforeTheTarget.key = tempBeforeTheTarget.key;
             }
         }
     }
@@ -170,15 +184,22 @@ public class BST { //BST -> Binära sökträd
         bt.insert(6);
         bt.insert(8);
 
-        System.out.println("-PreOrder-");
-        bt.traversePreOrder(bt.root);
-        System.out.println();
+        //System.out.println("-InOrder-");
+        //bt.traverseInOrder(bt.root);
+        //System.out.println();
 
-        bt.newRemove(bt.root, 10);
+        bt.newRemove(bt.root, 2);
 
-        System.out.println("-PreOrder-");
-        bt.traversePreOrder(bt.root);
-        System.out.println();
+        /* 10 -> 15 -> 5 -> 12 -> 20 -> 7 -> 2 -> 6 -> 8
+                                10
+                           5          15
+                        2     7      12   20
+                            6   8
+    */
+
+        //System.out.println("-InOrder-");
+        //bt.traverseInOrder(bt.root);
+        //System.out.println();
 
 
         /*
