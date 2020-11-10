@@ -1,6 +1,6 @@
 package Lektion3;
 
-public class BinaryTree { //BST -> Binära sökträd
+public class BinaryTree {
     Node root;
 
     class Node {
@@ -54,7 +54,6 @@ public class BinaryTree { //BST -> Binära sökträd
         System.out.println(tree.key);
         printInOrderRight(tree.left);
     }
-
 
     public static void main(String[] args) {
         BinaryTree bt = new BinaryTree();
