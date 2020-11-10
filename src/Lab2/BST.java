@@ -18,7 +18,45 @@ public class BST { //BST -> Binära sökträd
                            5          15
                         2     7      12   20
                             6   8
+
     */
+
+    public Node searchForSpecialNode(Node node, int x) {
+        if (x > node.key) {
+            return searchForSpecialNode(node.right, x);
+        } else if (x < node.key) {
+            return searchForSpecialNode(node.left, x);
+        }
+        return node;
+    }
+
+    int i=0;
+    public Node searchHighestAfterThatWeWantToRemove(Node node) {
+            if (node.right == null) {
+                return node;
+            } else {
+                return searchHighestAfterThatWeWantToRemove(node.right);
+            }
+    }
+
+    public void newRemove(Node node, int x) {
+        Node temp = searchForSpecialNode(node, x);
+        if (temp.left == null && temp.right == null) {
+            temp = null;
+        } else if (temp.left == null) {
+            temp = temp.right;
+        } else if (temp.right == null) {
+            temp = temp.left;
+        } else {
+            Node highestAfterTemp = searchHighestAfterThatWeWantToRemove(temp.left);
+
+            if (highestAfterTemp.left == null && highestAfterTemp.right == null) {
+                temp.key = highestAfterTemp.key;
+            } else {
+                temp.key = highestAfterTemp.key;
+            }
+        }
+    }
 
     private void remove(Node node, int n) {
         if (node != null) { //As long as the node is not null.
@@ -35,7 +73,7 @@ public class BST { //BST -> Binära sökträd
                     root.right = node.right;
                 }
             } else if (n < node.key) { // our target to remove is smaller than current node.key
-                if (node.left!= null) {
+                if (node.left != null) {
                     if (n == node.left.key) {
                         if (node.left.left != null) {
                             node.left.left.right = node.left.right;
@@ -70,7 +108,7 @@ public class BST { //BST -> Binära sökträd
 
     public void traversePreOrder(Node tree) { // NLR
         // 10 -> 5 -> 2 -> 7 -> 6 -> 8 -> 15 -> 12 -> 20
-        if(tree != null) {
+        if (tree != null) {
             System.out.println(tree.key);
             traversePreOrder(tree.left);
             traversePreOrder(tree.right);
@@ -97,7 +135,7 @@ public class BST { //BST -> Binära sökträd
 
     public void traversePostOrder(Node tree) { // LRN
         // 2 -> 6 -> 8 -> 7 -> 5 -> 12 -> 20 -> 15 -> 10
-        if(tree != null) {
+        if (tree != null) {
             traversePostOrder(tree.left);
             traversePostOrder(tree.right);
             System.out.println(tree.key);
@@ -135,6 +173,18 @@ public class BST { //BST -> Binära sökträd
         System.out.println("-PreOrder-");
         bt.traversePreOrder(bt.root);
         System.out.println();
+
+        bt.newRemove(bt.root, 10);
+
+        System.out.println("-PreOrder-");
+        bt.traversePreOrder(bt.root);
+        System.out.println();
+
+
+        /*
+        System.out.println("-PreOrder-");
+        bt.traversePreOrder(bt.root);
+        System.out.println();
         System.out.println("-InOrder-");
         bt.traverseInOrder(bt.root);
         System.out.println();
@@ -145,5 +195,6 @@ public class BST { //BST -> Binära sökträd
         bt.traversePostOrder(bt.root);
         System.out.println();
 
+         */
     }
 }
