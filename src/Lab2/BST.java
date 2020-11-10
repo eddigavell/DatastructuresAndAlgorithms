@@ -37,8 +37,8 @@ public class BST { //BST -> Binära sökträd
     public void newRemove(Node node, int x) {
         Node nodeBeforeTheTarget = searchNodeBeforeTarget(node, x);
 
-        boolean targetIsToleft = (nodeBeforeTheTarget.left.key == x);
-        boolean targetIsToRight = (nodeBeforeTheTarget.right.key == x);
+        boolean targetIsleftChildren = (nodeBeforeTheTarget.left.key == x);
+        boolean targetIsRightChildren = (nodeBeforeTheTarget.right.key == x);
         boolean targetRightChildren = false;
         boolean targetLeftChildren = false;
 
@@ -50,11 +50,11 @@ public class BST { //BST -> Binära sökträd
     */
 
         System.out.println("Node före target: " + nodeBeforeTheTarget.key);
-        System.out.println("barn till vänster: " + targetIsToleft);
-        System.out.println("barn till höger: " + targetIsToRight);
+        System.out.println("barn till vänster: " + targetIsleftChildren);
+        System.out.println("barn till höger: " + targetIsRightChildren);
 
 
-        if (targetIsToleft) { // Target node is the left children
+        if (targetIsleftChildren) { // Target node is the left children
             // Check if target has children
             if (nodeBeforeTheTarget.left.left != null) {
                 targetLeftChildren = true;
@@ -79,7 +79,7 @@ public class BST { //BST -> Binära sökträd
 
             }
 
-        } else if (targetIsToRight) { // Target node is the right children
+        } else if (targetIsRightChildren) { // Target node is the right children
             // Check if target has children
             if (nodeBeforeTheTarget.right.left != null) {
                 targetLeftChildren = true;
