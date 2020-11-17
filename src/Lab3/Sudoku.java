@@ -1,21 +1,19 @@
 package Lab3;
 
 public class Sudoku {
+    private int[][] board = {{0, 0, 0, 8, 0, 4, 9, 3, 7},
+                             {0, 7, 4, 1, 0, 0, 0, 8, 0},
+                             {8, 3, 2, 0, 0, 0, 4, 0, 0},
+                             {2, 0, 5, 3, 0, 0, 7, 4, 0},
+                             {0, 0, 0, 0, 0, 0, 0, 1, 6},
+                             {1, 4, 3, 0, 0, 0, 2, 0, 0},
+                             {0, 0, 7, 0, 9, 0, 6, 0, 0},
+                             {0, 2, 1, 7, 5, 6, 8, 9, 0},
+                             {6, 5, 9, 2, 3, 0, 0, 7, 4}};
 
-    private int [][] board = {{0, 0, 0, 8, 0, 4, 9, 3, 7},
-                              {0, 7, 4, 1, 0, 0, 0, 8, 0},
-                              {8, 3, 2, 0, 0, 0, 4, 0, 0},
-                              {2, 0, 5, 3, 0, 0, 7, 4, 0},
-                              {0, 0, 0, 0, 0, 0, 0, 1, 6},
-                              {1, 4, 3, 0, 0, 0, 2, 0, 0},
-                              {0, 0, 7, 0, 9, 0, 6, 0, 0},
-                              {0, 2, 1, 7, 5, 6, 8, 9, 0},
-                              {6, 5, 9, 2, 3, 0, 0, 7, 4}};
-
-    Sudoku() {
+    private Sudoku() {
         printBoard();
         if (solve(board)) {
-            System.out.println();
             System.out.println();
             System.out.println("Sudoku solved with simple BT");
             printBoard();
@@ -28,22 +26,24 @@ public class Sudoku {
 
     private void printBoard() {
         for(int i = 0; i < 9; i++) {
-            System.out.println();
             for (int j = 0; j < 9; j++) {
-                System.out.print(board[i][j] + " ");
+                if (j < 8) {
+                    System.out.print(board[i][j] + " ");
+                } else {
+                    System.out.print(board[i][j]);
+                }
             }
+            System.out.println();
         }
     }
 
     private boolean possible(int x, int y, int value){
-        //kontrollera rad och kolumn
-        for(int i = 0; i < 9; i++){
+        for(int i = 0; i < 9; i++) { // kontrollera rad och kolumn
             if(board[x][i] == value || board[i][y] == value){
                 return false;
             }
         }
-        //kontrollera rutan
-        int x0 = x - x % 3;
+        int x0 = x - x % 3; // kontrollera rutan
         int y0 = y - y % 3;
         for (int i = x0; i < x0+3; i++) {
            for (int j = y0; j < y0+3; j++) {
@@ -73,13 +73,10 @@ public class Sudoku {
                 }
             }
         }
-        return true;
-        //      Gör return
-        // Skriv ut lösning
+        return true; // Gör return
     }
 
     public static void main(String[] args) {
         new Sudoku();
     }
-
 }
